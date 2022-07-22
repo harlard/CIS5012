@@ -1,76 +1,81 @@
 #include "Object4o.h"
 //add funtionality
 Object4o::Object4o(){
-ogreBound = nullptr;
-colShape = nullptr;
-dynamicsWorld =  nullptr;
-body = nullptr
-//douth
-position = nullptr;
-scale = nullptr;
 
+  colShape = nullptr;
+  dynamicsWorld =  nullptr;
+
+  Vector3 ogreBound(0.0f,0.0f,0.0f);
+
+  linearDamping = 0.2f;
+  angularDamping = 0.8f;
 }
 
 Object4o::~Object4o(){} // Weird!!!!
 
-void Object4o::init(SceneManager* newWorld, string newForm, Vector3 newPos, Vector3 newSca){
-  setWorld(newWorld);// set new world(ogre manager)
-  setForm(newForm);// set mesh by using a string parameter
-  setPositon(newPos; // set current position
-  setScale(newSca) // set current scale
-  setBoundingForOgre()
+void Object4o::init(SceneManager* newWorld, Vector3 newPos, Vector3 newSca){
+  setWorld(newWorld);
+  setPositon(newPos); // set current position
+  setScale(newSca); // set current scale
 
 }
 void Object4o::setWorld(SceneManager* newWorld){
   world = newWorld;
+  setForm();// set mesh by using a string parameter
+  attachToRoot();
+
 }
 
-void Object4o::setForm(string newFom){
-  nameBody = newFom;
-  body = world->createEntity(newFom);
+void Object4o::setForm(){
+  nameBody = "Table.mesh";
+  objEnt = world->createEntity(nameBody);
   }
 
 void Object4o::setPositon(Vector3 newPos){
   position = newPos; // store current postion
-  nodeOgre->setPositon(position);//set postion in ogreNode
+  ogreNode->setPosition(position);//set postion in ogreNode
 
     }
 
-void Object4o::setScale(vector3 newSca){
+void Object4o::setScale(Vector3 newSca){
   scale = newSca;
-  nodeOgre->setScale(newSca);
+  ogreNode->setScale(newSca);
   }
 
 void Object4o::setRotation(Vector3 axis, Radian rads){
   //quat from axis angle
 Quaternion quat(rads, axis);
-boxSceneNode->setOrientation(quat);
+ogreNode->setOrientation(quat);
 
 }
-void Object4o::attachNode(SceneNode* parent){
-  nodeOgre = parent->attachToNode(parent)
-
+void Object4o::attachToRoot(){
+   SceneNode* rootNode;
+   rootNode =world->getRootSceneNode();
+   ogreNode = rootNode->createChildSceneNode();
+   ogreNode->attachObject(objEnt);
+   ogreNode->setScale(1.0f,1.0f,1.0f);
+   boundingBoxFromOgre();
 }
 void Object4o::boundingBoxFromOgre()
 {
   //get bounding box here.
-  nodeOgre->_updateBounds();
-  const AxisAlignedBox& b = nodeOgre->_getWorldAABB();
+  ogreNode->_updateBounds();
+  const AxisAlignedBox& b = ogreNode->_getWorldAABB();
   Vector3 temp(b.getSize());
   ogreBound = temp;
 }
 void Object4o::createRigidBody(float bodyMass)
 {
-  colShape = new btBoxShape(btVector3(meshBoundingBox.x/2.0f, meshBoundingBox.y/2.0f, meshBoundingBox.z/2.0f));
+  colShape = new btBoxShape(btVector3(ogreBound.x/2.0f, ogreBound.y/2.0f, ogreBound.z/2.0f));
 
   /// Create Dynamic Objects
   btTransform startTransform;
   startTransform.setIdentity();
 
-  Quaternion quat2 = boxSceneNode->_getDerivedOrientation();
+  Quaternion quat2 = ogreNode->_getDerivedOrientation();
   startTransform.setRotation(btQuaternion(quat2.x, quat2.y, quat2.z, quat2.w));
 
-  Vector3 pos = boxSceneNode->_getDerivedPosition();
+  Vector3 pos = ogreNode->_getDerivedPosition();
   startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
 
   btScalar mass(bodyMass);
@@ -121,7 +126,7 @@ void Object4o::update()
     body->getMotionState()->getWorldTransform(trans);
     btQuaternion orientation = trans.getRotation();
 
-    boxSceneNode->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
-    boxSceneNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
+    ogreNode->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
+    ogreNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
   }
 }

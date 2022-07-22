@@ -6,7 +6,7 @@
 #include "OgreRTShaderSystem.h"
 #include "OgreApplicationContext.h"
 #include "OgreCameraMan.h"
-#include "Object4o.h"
+#include "Objects/Object4o.h"
 
 /* Bullet3 Physics */
 #include "btBulletDynamicsCommon.h"
@@ -16,6 +16,7 @@
 
 using namespace Ogre;
 using namespace OgreBites;
+
 
 class Game : public ApplicationContext, public InputListener
 {

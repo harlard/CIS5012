@@ -3,6 +3,11 @@
 
 /* Ogre3d Graphics*/
 #include "Ogre.h"
+#include "OgreApplicationContext.h"
+#include "OgreInput.h"
+#include "OgreRTShaderSystem.h"
+#include "OgreApplicationContext.h"
+#include "OgreCameraMan.h"
 
 /* Bullet3 Physics */
 #include "btBulletDynamicsCommon.h"
@@ -20,13 +25,16 @@ class Object4o
     private:
       //ogre variable
       SceneManager* world; // scene Manager from ogre
-      SceneNode* nodeOgre // node on ogre
+      SceneNode* ogreNode; // node on ogre
       Entity* objEnt;// entity for ogre
       Vector3 ogreBound; //bound for ogre
       //bullet variable
       btCollisionShape* colShape; // collision shapes for bullet
       btRigidBody* body; // body for bullet
       btDiscreteDynamicsWorld* dynamicsWorld; // dynamic variable
+      btScalar linearDamping; /**< Damping force on the linear motion of the body, kind of air/friction */
+      btScalar angularDamping; /**< Damping force on the angular motion of the body, kind of air/friction */
+
       // custom variables
       Vector3 position; // store current position
       SceneNode node; // node use in ogre
@@ -38,20 +46,20 @@ class Object4o
     public:
       Object4o();
       ~Object4o();
-      void init(SceneManager* newWorld, string newForm, Vector3 newPos, Vector3 newSca):
+      void init(SceneManager* newWorld, Vector3 newPos, Vector3 newSca);
       void setWorld(SceneManager* newWorld); // attach to ogre node
-      void setForm(string newFom);// createMesh
-      void setPositon(Vector3 newPos; //set a new position
+      void setForm();// createMesh
+      void setPositon(Vector3 newPos); //set a new position
       void setScale(Vector3 newSca); // set a new scale
-      void setRotation(); //set new rotation
+      void setRotation(Vector3 axis,Radian rads); //set new rotation
       void update(); // update object
-      void attachToNode(); //attach to a new node
+      void attachToRoot(); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
       void createRigidBody(float mass); // set bullet
       void addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes); //Create a collider
       void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics world
       void setMass(float mass); //set mass
-
+      void setBoundingForOgre();
 
 
 };

@@ -13,11 +13,15 @@ Manual generation of meshes from here:
 
 #include "Game.h"
 
+using namespace Ogre;
+using namespace std;
+
 #include "OgreBullet.h"
 
 Game::Game() : ApplicationContext("OgreTutorialApp")
 {
     dynamicsWorld = NULL;
+    object = nullptr;
 }
 
 Game::~Game()
@@ -91,8 +95,9 @@ void Game::setup()
     setupLights();
 
     setupBoxMesh();
-    object = new Object4o;
-    object->init(scnMgr, "Table.mesh", vector3(100.0,100.0,100.0),vector3(100.0,100.0,100.0));
+    object = new Object4o();
+    object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
+
 
 }
 

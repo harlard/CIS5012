@@ -7,7 +7,7 @@
 # heavily modified for CMU students - CIS5012.
 
 # Set the Executable name.
-set(APP "ExtremeBeerPong")
+set(APP "BeerPong")
 
 project(${APP})
 
@@ -20,12 +20,12 @@ find_package(Threads)
 
 set(HDRS
 	./src/Game.h
- 	./scr/Object4o.h
+	./src/Objects/Object4o.h
 )
 
 set(SRCS
 	./src/Game.cpp
-	./scr/Object4o.cpp
+	./src/Objects/Object4o.cpp
 	./src/main.cpp
 )
 
@@ -34,6 +34,5 @@ include("tools/cmake/common.cmake")
 # As of Ogre 1.13 Bullet is a plugin, so as long as
 # its found by CMake we've nothing else to do.
 
-include("tools/cmake/bulletBase.cmake")
-
-include("tools/cmake/ogreBase.cmake")
+#include("tools/cmake/bulletBase.cmake")
+#include("tools/cmake/ogreBase.cmake")
