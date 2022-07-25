@@ -2,6 +2,9 @@
 //add funtionality
 Object4o::Object4o(){
 
+  //ogreNode = nullptr;
+  objEnt = nullptr;
+
   colShape = nullptr;
   dynamicsWorld =  nullptr;
 
@@ -13,22 +16,21 @@ Object4o::Object4o(){
 
 Object4o::~Object4o(){} // Weird!!!!
 
-void Object4o::init(SceneManager* newWorld, Vector3 newPos, Vector3 newSca){
-  setWorld(newWorld);
+void Object4o::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
+  setScnMan(newScnMan);
   setPositon(newPos); // set current position
   setScale(newSca); // set current scale
 
 }
-void Object4o::setWorld(SceneManager* newWorld){
-  world = newWorld;
-  setForm();// set mesh by using a string parameter
-  attachToRoot();
+void Object4o::setScnMan(SceneManager* newScnMan){
+  setForm(newScnMan);// set mesh by using a string parameter
+  attachToRoot(newScnMan);
 
 }
 
-void Object4o::setForm(){
+void Object4o::setForm(SceneManager* newScnMan){
   nameBody = "Table.mesh";
-  objEnt = world->createEntity(nameBody);
+  objEnt = newScnMan->createEntity(nameBody);
   }
 
 void Object4o::setPositon(Vector3 newPos){
@@ -48,9 +50,9 @@ Quaternion quat(rads, axis);
 ogreNode->setOrientation(quat);
 
 }
-void Object4o::attachToRoot(){
+void Object4o::attachToRoot(SceneManager* newScnMan){
    SceneNode* rootNode;
-   rootNode =world->getRootSceneNode();
+   rootNode = newScnMan->getRootSceneNode();
    ogreNode = rootNode->createChildSceneNode();
    ogreNode->attachObject(objEnt);
    ogreNode->setScale(1.0f,1.0f,1.0f);

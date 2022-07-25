@@ -12,7 +12,6 @@
 #include "btBulletDynamicsCommon.h"
 #include "btBulletCollisionCommon.h"
 
-//#include "scr/Object4o.h"
 
 using namespace Ogre;
 using namespace OgreBites;
@@ -22,6 +21,7 @@ class Game : public ApplicationContext, public InputListener
 {
 private:
     SceneManager *scnMgr;
+    Object4o *object;
   //  Object4o *object;
     //// collision configuration.
     btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();
@@ -39,7 +39,7 @@ private:
     /// keep track of the shapes, we release memory at exit.
     // make sure to re-use collision shapes among rigid bodies whenever possible!
     btAlignedObjectArray<btCollisionShape *> collisionShapes;
-    Object4o *object;
+    //Object4o *object;
 
 public:
     Game();

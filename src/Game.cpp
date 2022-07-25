@@ -95,8 +95,8 @@ void Game::setup()
     setupLights();
 
     setupBoxMesh();
-    object = new Object4o();
-    object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
+    //object = new Object4o();
+    //object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
 
 
 }

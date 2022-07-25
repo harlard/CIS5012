@@ -3,11 +3,7 @@
 
 /* Ogre3d Graphics*/
 #include "Ogre.h"
-#include "OgreApplicationContext.h"
-#include "OgreInput.h"
-#include "OgreRTShaderSystem.h"
-#include "OgreApplicationContext.h"
-#include "OgreCameraMan.h"
+
 
 /* Bullet3 Physics */
 #include "btBulletDynamicsCommon.h"
@@ -24,7 +20,6 @@ class Object4o
 {
     private:
       //ogre variable
-      SceneManager* world; // scene Manager from ogre
       SceneNode* ogreNode; // node on ogre
       Entity* objEnt;// entity for ogre
       Vector3 ogreBound; //bound for ogre
@@ -37,7 +32,6 @@ class Object4o
 
       // custom variables
       Vector3 position; // store current position
-      SceneNode node; // node use in ogre
       Vector3 scale; // store current scale
       Vector3 axis; // store current axis
       Radian rads; // store current rads
@@ -46,18 +40,18 @@ class Object4o
     public:
       Object4o();
       ~Object4o();
-      void init(SceneManager* newWorld, Vector3 newPos, Vector3 newSca);
-      void setWorld(SceneManager* newWorld); // attach to ogre node
-      void setForm();// createMesh
+      void init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
+      void setScnMan(SceneManager* newScnMan); // attach to ogre node
+      void setForm(SceneManager* newScnMan);// createMesh
       void setPositon(Vector3 newPos); //set a new position
       void setScale(Vector3 newSca); // set a new scale
       void setRotation(Vector3 axis,Radian rads); //set new rotation
       void update(); // update object
-      void attachToRoot(); //attach to a new node
+      void attachToRoot(SceneManager* newScnMan); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
       void createRigidBody(float mass); // set bullet
       void addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes); //Create a collider
-      void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics world
+      void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics scnMan
       void setMass(float mass); //set mass
       void setBoundingForOgre();
 

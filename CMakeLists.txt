@@ -34,5 +34,5 @@ include("tools/cmake/common.cmake")
 # As of Ogre 1.13 Bullet is a plugin, so as long as
 # its found by CMake we've nothing else to do.
 
-#include("tools/cmake/bulletBase.cmake")
-#include("tools/cmake/ogreBase.cmake")
+include("tools/cmake/bulletBase.cmake")
+include("tools/cmake/ogreBase.cmake")
