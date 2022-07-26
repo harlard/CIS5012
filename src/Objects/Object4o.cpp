@@ -2,7 +2,7 @@
 //add funtionality
 Object4o::Object4o(){
 
-  //ogreNode = nullptr;
+  ogreNode = nullptr;
   objEnt = nullptr;
 
   colShape = nullptr;
@@ -23,14 +23,14 @@ void Object4o::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
 
 }
 void Object4o::setScnMan(SceneManager* newScnMan){
-  setForm(newScnMan);// set mesh by using a string parameter
+  newEntity(newScnMan);// set mesh by using a string parameter
   attachToRoot(newScnMan);
 
 }
 
-void Object4o::setForm(SceneManager* newScnMan){
-  nameBody = "Table.mesh";
-  objEnt = newScnMan->createEntity(nameBody);
+void Object4o::newEntity(SceneManager* newScnMan){
+  nameMesh = "Sphere.mesh";
+  objEnt = newScnMan->createEntity("cube.mesh");
   }
 
 void Object4o::setPositon(Vector3 newPos){
@@ -66,21 +66,10 @@ void Object4o::boundingBoxFromOgre()
   Vector3 temp(b.getSize());
   ogreBound = temp;
 }
-void Object4o::createRigidBody(float bodyMass)
-{
-  colShape = new btBoxShape(btVector3(ogreBound.x/2.0f, ogreBound.y/2.0f, ogreBound.z/2.0f));
+void Object4o::setMass(float newMass){
+  cMass = newMass;
+  btScalar mass(cMass);
 
-  /// Create Dynamic Objects
-  btTransform startTransform;
-  startTransform.setIdentity();
-
-  Quaternion quat2 = ogreNode->_getDerivedOrientation();
-  startTransform.setRotation(btQuaternion(quat2.x, quat2.y, quat2.z, quat2.w));
-
-  Vector3 pos = ogreNode->_getDerivedPosition();
-  startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
-
-  btScalar mass(bodyMass);
 
   //rigidbody is dynamic if and only if mass is non zero, otherwise static
   bool isDynamic = (mass != 0.f);
@@ -105,7 +94,22 @@ void Object4o::createRigidBody(float bodyMass)
   body->setDamping(linearDamping,angularDamping);
 
   //Set the user pointer to this object.
-  body->setUserPointer((void*)this);
+  body->setUserPointer((void*)this);}
+void Object4o::createRigidBody(float bodyMass)
+{
+  colShape = new btBoxShape(btVector3(ogreBound.x/2.0f, ogreBound.y/2.0f, ogreBound.z/2.0f));
+
+  /// Create Dynamic Objects
+
+  startTransform.setIdentity();
+
+  Quaternion quat2 = ogreNode->_getDerivedOrientation();
+  startTransform.setRotation(btQuaternion(quat2.x, quat2.y, quat2.z, quat2.w));
+
+  Vector3 pos = ogreNode->_getDerivedPosition();
+  startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
+
+
 }
 
 void Object4o::addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes)
@@ -132,3 +136,12 @@ void Object4o::update()
     ogreNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
   }
 }
+
+Vector3 Object4o::getPosition(){return position;}
+Vector3 Object4o::getScale(){return scale;}
+void Object4o::getRotaion(){}
+Vector3 Object4o::getAxis(){return axis;}
+Radian Object4o::getRad(){return rads;}
+Vector3 Object4o::getOgreBound(){return ogreBound;}
+void Object4o::getName(){}
+float Object4o::getMass(){return cMass;}

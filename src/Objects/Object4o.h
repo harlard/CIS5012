@@ -29,31 +29,42 @@ class Object4o
       btDiscreteDynamicsWorld* dynamicsWorld; // dynamic variable
       btScalar linearDamping; /**< Damping force on the linear motion of the body, kind of air/friction */
       btScalar angularDamping; /**< Damping force on the angular motion of the body, kind of air/friction */
-
-      // custom variables
+      float cMass;   // Mass
+      btTransform startTransform;
+        // custom variables
       Vector3 position; // store current position
       Vector3 scale; // store current scale
       Vector3 axis; // store current axis
       Radian rads; // store current rads
-      string nameBody;// name of current form
+      string nameMesh;// name of current form
 
     public:
       Object4o();
       ~Object4o();
-      void init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
+      void virtual init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
       void setScnMan(SceneManager* newScnMan); // attach to ogre node
-      void setForm(SceneManager* newScnMan);// createMesh
+      void newEntity(SceneManager* newScnMan);// createMesh
       void setPositon(Vector3 newPos); //set a new position
       void setScale(Vector3 newSca); // set a new scale
       void setRotation(Vector3 axis,Radian rads); //set new rotation
+      void setMass(); // set mass
       void update(); // update object
       void attachToRoot(SceneManager* newScnMan); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
       void createRigidBody(float mass); // set bullet
       void addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes); //Create a collider
       void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics scnMan
-      void setMass(float mass); //set mass
+      void setMass(float newMass); //set mass
       void setBoundingForOgre();
+      Vector3 getPosition();
+      Vector3 getScale();
+      void getRotaion();
+      Vector3 getAxis();
+      Radian getRad();
+      Vector3 getOgreBound();
+      float getMass();
+      void getName();
+
 
 
 };

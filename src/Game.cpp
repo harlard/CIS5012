@@ -18,10 +18,11 @@ using namespace std;
 
 #include "OgreBullet.h"
 
-Game::Game() : ApplicationContext("OgreTutorialApp")
+Game::Game() : ApplicationContext("BeerPong")
 {
-    dynamicsWorld = NULL;
-    object = nullptr;
+  dynamicsWorld = NULL;
+  mWindow = nullptr;
+  object = nullptr;
 }
 
 Game::~Game()
@@ -74,8 +75,10 @@ Game::~Game()
 void Game::setup()
 {
     // do not forget to call the base first
+  //  ApplicationContext::RenderWindow* mWindow = mRoot->createRenderWindow("Main", 1600, 800, false );
+//    ApplicationContext::createWindow("Game",1600,800, false/*Ogre::NameValuePairList  	miscParams = Ogre::NameValuePairList()*/);
+  //  RenderWindow* mWindow = mRoot->createWindow("Main", 800, 600, false );
     ApplicationContext::setup();
-
     addInputListener(this);
 
     // get a pointer to the already created root
@@ -95,33 +98,21 @@ void Game::setup()
     setupLights();
 
     setupBoxMesh();
-    //object = new Object4o();
-    //object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
+    object = new Object4o();
+    object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
 
 
 }
 
 void Game::setupCamera()
 {
-    // Create Camera
-    Camera *cam = scnMgr->createCamera("myCam");
-
-    // Setup Camera
-    cam->setNearClipDistance(5);
-
-    // Position Camera - to do this it must be attached to a scene graph and added
-    // to the scene.
-    SceneNode *camNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-    camNode->setPosition(200, 300, 600);
-    camNode->lookAt(Vector3(0, 0, 0), Node::TransformSpace::TS_WORLD);
-    camNode->attachObject(cam);
-
     // Setup viewport for the camera.
-    Viewport *vp = getRenderWindow()->addViewport(cam);
+    Viewport *vp;
+    camO = new OCamera();
+    camO->init(Vector3(120,50,50), Vector3(0.0,0.0,0.0), scnMgr, vp);
     vp->setBackgroundColour(ColourValue(0, 0, 0));
 
     // link the camera and view port.
-    cam->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
 }
 
 void Game::bulletInit()
@@ -145,7 +136,7 @@ void Game::bulletInit()
 
 void Game::setupBoxMesh()
 {
-    Entity *box = scnMgr->createEntity("Table.mesh");
+    /* Entity *box = scnMgr->createEntity("Table.mesh");
     box->setCastShadows(true);
 
     SceneNode *thisSceneNode = scnMgr->getRootSceneNode()->createChildSceneNode();
@@ -231,7 +222,7 @@ void Game::setupBoxMesh()
 
     //  body->setRestitution(0.5);
 
-    dynamicsWorld->addRigidBody(body);
+    dynamicsWorld->addRigidBody(body);*/
 }
 
 void Game::setupFloor()

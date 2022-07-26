@@ -21,12 +21,15 @@ find_package(Threads)
 set(HDRS
 	./src/Game.h
 	./src/Objects/Object4o.h
+	./src/Objects/OCamera.h
 )
 
 set(SRCS
 	./src/Game.cpp
 	./src/Objects/Object4o.cpp
+	./src/Objects/OCamera.cpp
 	./src/main.cpp
+
 )
 
 include("tools/cmake/common.cmake")

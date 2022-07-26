@@ -7,6 +7,10 @@
 #include "OgreApplicationContext.h"
 #include "OgreCameraMan.h"
 #include "Objects/Object4o.h"
+#include "Objects/OCamera.h"
+
+
+
 
 /* Bullet3 Physics */
 #include "btBulletDynamicsCommon.h"
@@ -22,6 +26,9 @@ class Game : public ApplicationContext, public InputListener
 private:
     SceneManager *scnMgr;
     Object4o *object;
+    RenderWindow* mWindow;
+    OCamera *camO;
+    
   //  Object4o *object;
     //// collision configuration.
     btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();
