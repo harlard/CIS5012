@@ -109,7 +109,10 @@ void Game::setupCamera()
     // Setup viewport for the camera.
     Viewport *vp;
     camO = new OCamera();
-    camO->init(Vector3(120,50,50), Vector3(0.0,0.0,0.0), scnMgr, vp);
+    camO->init(Vector3(120,50,50), Vector3(0.0,0.0,0.0), scnMgr);
+    Camera temp = camO->getCam();
+    vp = getRenderWindow()->addViewport(temp);
+    temp->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
     vp->setBackgroundColour(ColourValue(0, 0, 0));
 
     // link the camera and view port.

@@ -30,7 +30,7 @@ void Object4o::setScnMan(SceneManager* newScnMan){
 
 void Object4o::newEntity(SceneManager* newScnMan){
   nameMesh = "Sphere.mesh";
-  objEnt = newScnMan->createEntity("cube.mesh");
+  objEnt = newScnMan->createEntity(nameMesh);
   }
 
 void Object4o::setPositon(Vector3 newPos){
@@ -53,7 +53,7 @@ ogreNode->setOrientation(quat);
 void Object4o::attachToRoot(SceneManager* newScnMan){
    SceneNode* rootNode;
    rootNode = newScnMan->getRootSceneNode();
-   ogreNode = rootNode->createChildSceneNode();
+   attachNodeTo(rootNode);
    ogreNode->attachObject(objEnt);
    ogreNode->setScale(1.0f,1.0f,1.0f);
    boundingBoxFromOgre();
@@ -137,11 +137,15 @@ void Object4o::update()
   }
 }
 
+void Object4o::attachNodeTo(SceneNode *nodeTo){ogreNode = nodeTo->createChildSceneNode();}
+
 Vector3 Object4o::getPosition(){return position;}
 Vector3 Object4o::getScale(){return scale;}
 void Object4o::getRotaion(){}
 Vector3 Object4o::getAxis(){return axis;}
 Radian Object4o::getRad(){return rads;}
 Vector3 Object4o::getOgreBound(){return ogreBound;}
+SceneNode Object4o::getOgreNode(){return *ogreNode;}
 void Object4o::getName(){}
 float Object4o::getMass(){return cMass;}
+void Object4o::setLookAt(Vector3 newLook){ looking = newLook; ogreNode->lookAt(looking, Node::TransformSpace::TS_WORLD);}

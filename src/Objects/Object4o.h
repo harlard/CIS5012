@@ -37,6 +37,7 @@ class Object4o
       Vector3 axis; // store current axis
       Radian rads; // store current rads
       string nameMesh;// name of current form
+      Vector3  looking;
 
     public:
       Object4o();
@@ -49,7 +50,8 @@ class Object4o
       void setRotation(Vector3 axis,Radian rads); //set new rotation
       void setMass(); // set mass
       void update(); // update object
-      void attachToRoot(SceneManager* newScnMan); //attach to a new node
+      void attachToRoot(SceneManager* newScnMan);
+      void attachNodeTo(SceneNode *nodeTo); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
       void createRigidBody(float mass); // set bullet
       void addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes); //Create a collider
@@ -61,7 +63,10 @@ class Object4o
       void getRotaion();
       Vector3 getAxis();
       Radian getRad();
+      Vector3 getLook(){return looking;}
       Vector3 getOgreBound();
+      SceneNode getOgreNode();
+      void setLookAt(Vector3 newLook);
       float getMass();
       void getName();
 
