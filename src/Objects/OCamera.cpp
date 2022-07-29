@@ -2,7 +2,7 @@
 
 OCamera::OCamera(){
   cam = nullptr;
-  looking = Vector3(0.0, 0.0, 0.0);
+
 }
 
 OCamera::~OCamera(){
@@ -20,26 +20,15 @@ OCamera::void init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan, Vie
   ogreNode->lookAt(looking, Node::TransformSpace::TS_WORLD);
   ogreNode->attachObject(cam);
   attachToVP(newVp);
-  attachTo()
+  //attachCamara(ogreNode);
 
 
   }
 
-OCamera::void attachToVP(Viewport *newVp){
-  newVp = getRenderWindow()->addViewport(cam);
-  cam0->setAspectRatio(Real(newVp->getActualWidth()) / Real(newVp->getActualHeight()));
+void OCamera::attachToVP(Viewport *newVp){
 
 }
 
-OCamera::Vector3 getCLook(){
- return looking;
-}
-
-OCamera::Camera getCam(){
-  return cam;
-}
-
-OCamera::void setLookAt(Vector3 newCLook){
-  ogreNode->lookAt(newCLook, Node::TransformSpace::TS_WORLD);
-
+Camera OCamera::getCam(){
+  return *cam;
 }

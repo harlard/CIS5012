@@ -12,16 +12,12 @@ using namespace OgreBites;
 class OCamera : public Object4o{
     private :
       Camera *cam;
-      Vector3  looking;
-
     public :
     OCamera();
     ~OCamera();
-    void init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan, Viewport *newVp);
-    void  setLookAt(Vector3 newCLook);
+    void init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan);
     Vector3 getLook();
     Camera getCam();
-    void attachTo(SceneNode *nodeTo);
 
 
 };
