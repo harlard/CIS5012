@@ -26,5 +26,12 @@ Camera* OCamera::getCam(){
 
 void OCamera::setAspect(float w, float h){
   cam->setAspectRatio(w / h);
+}
 
+void OCamera::update(){
+  Vector3 newPos = getLooking();
+  newPos.normalise();
+  Vector3 cPos = getPosition();
+  newPos = Vector3((cPos.x-((newPos.x)-1)),(cPos.y-((newPos.y)-1)),(cPos.z-((newPos.z)-1)));
+  setPositon(newPos);
 }

@@ -397,6 +397,7 @@ void Game::collisionDetection()
 
 bool Game::frameEnded(const Ogre::FrameEvent &evt)
 {
+  camO->update();
     if (this->dynamicsWorld != NULL)
     {
         // Bullet can work with a fixed timestep
