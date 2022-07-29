@@ -17,7 +17,9 @@ class OCamera : public Object4o{
     ~OCamera();
     void init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan);
     Vector3 getLook();
-    Camera getCam();
+    Camera* getCam();
+    void setAspect(float w, float h);
+
 
 
 };

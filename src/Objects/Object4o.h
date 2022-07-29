@@ -49,7 +49,7 @@ class Object4o
       void setScale(Vector3 newSca); // set a new scale
       void setRotation(Vector3 axis,Radian rads); //set new rotation
       void setMass(); // set mass
-      void update(); // update object
+      void  virtual update(); // update object
       void attachToRoot(SceneManager* newScnMan);
       void attachNodeTo(SceneNode *nodeTo); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
@@ -69,6 +69,8 @@ class Object4o
       void setLookAt(Vector3 newLook);
       float getMass();
       void getName();
+      Vector3 getLooking();
+      void attachCamera(Camera *cam);
 
 
 

@@ -8,27 +8,23 @@ OCamera::OCamera(){
 OCamera::~OCamera(){
 }
 
-OCamera::void init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan, Viewport *newVp){
+void OCamera::init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan){
   cam = newScnMan->createCamera("Test");
   SceneNode* rootNode;
   rootNode = newScnMan->getRootSceneNode();
-  ogreNode = rootNode->createChildSceneNode();
-  postion = newPos;
-  ogreNode = newScnMan->createChildSceneNode()
-  ogreNode->setPosition(position);
-  looking = newCLook;
-  ogreNode->lookAt(looking, Node::TransformSpace::TS_WORLD);
-  ogreNode->attachObject(cam);
-  attachToVP(newVp);
-  //attachCamara(ogreNode);
-
-
+  attachNodeTo(rootNode);
+  setPositon(newPos);
+  setLookAt(newLook);
+  attachCamera(cam);
   }
 
-void OCamera::attachToVP(Viewport *newVp){
 
+
+Camera* OCamera::getCam(){
+  return cam;
 }
 
-Camera OCamera::getCam(){
-  return *cam;
+void OCamera::setAspect(float w, float h){
+  cam->setAspectRatio(w / h);
+
 }

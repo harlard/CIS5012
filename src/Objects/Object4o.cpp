@@ -29,7 +29,7 @@ void Object4o::setScnMan(SceneManager* newScnMan){
 }
 
 void Object4o::newEntity(SceneManager* newScnMan){
-  nameMesh = "Sphere.mesh";
+  nameMesh = "cube.mesh";
   objEnt = newScnMan->createEntity(nameMesh);
   }
 
@@ -149,3 +149,5 @@ SceneNode Object4o::getOgreNode(){return *ogreNode;}
 void Object4o::getName(){}
 float Object4o::getMass(){return cMass;}
 void Object4o::setLookAt(Vector3 newLook){ looking = newLook; ogreNode->lookAt(looking, Node::TransformSpace::TS_WORLD);}
+Vector3 Object4o::getLooking(){return looking;}
+void Object4o::attachCamera(Camera *cam){ogreNode->attachObject(cam);}
