@@ -109,7 +109,7 @@ void Game::setupCamera()
     // Setup viewport for the camera.
     Viewport *vp;
     camO = new OCamera();
-    camO->init(Vector3(120,50,50), Vector3(0.0,0.0,0.0), scnMgr);
+    camO->init(Vector3(120,50,50), Vector3(-1.0,-1.0,-1.0), scnMgr);
 
     vp = getRenderWindow()->addViewport(camO->getCam());
     camO->setAspect(Real(vp->getActualWidth()), Real(vp->getActualHeight()));
@@ -301,6 +301,7 @@ bool Game::frameStarted(const Ogre::FrameEvent &evt)
 {
     // Be sure to call base class - otherwise events are not polled.
     ApplicationContext::frameStarted(evt);
+    camO->moveForward();
 
     if (this->dynamicsWorld != NULL)
     {
