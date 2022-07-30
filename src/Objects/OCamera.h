@@ -12,6 +12,8 @@ using namespace OgreBites;
 class OCamera : public Object4o{
     private :
       Camera *cam;
+      float movementSpeed;
+      float rotationSpeed;
     public :
     OCamera();
     ~OCamera();
@@ -19,6 +21,11 @@ class OCamera : public Object4o{
     Camera* getCam();
     void update();
     void setAspect(float w, float h);
+    void moveForward();
+    void moveToSide();
+    void rotateCamera();
+    void setSpeed(float newSpeed);
+    void setRotationSpeed(float newSpeed);
 
 
 
