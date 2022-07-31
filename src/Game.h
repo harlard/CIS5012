@@ -8,6 +8,7 @@
 #include "OgreCameraMan.h"
 #include "Objects/Object4o.h"
 #include "Objects/OCamera.h"
+//#include "Utils/Utils.h"
 
 
 
@@ -28,7 +29,7 @@ private:
     Object4o *object;
     RenderWindow* mWindow;
     OCamera *camO;
-    
+
   //  Object4o *object;
     //// collision configuration.
     btDefaultCollisionConfiguration *collisionConfiguration = new btDefaultCollisionConfiguration();

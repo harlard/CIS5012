@@ -13,7 +13,11 @@ class OCamera : public Object4o{
     private :
       Camera *cam;
       float movementSpeed;
-      float rotationSpeed;
+      Radian yRotationSpeed;
+      Radian pRotationSpeed;
+      SceneNode *pitchNode; // use to do rotation in YZ
+      SceneNode *yawNode;   //  use to do rotation in XZ
+      SceneNode *rollnode;
     public :
     OCamera();
     ~OCamera();
@@ -23,11 +27,11 @@ class OCamera : public Object4o{
     void setAspect(float w, float h);
     void moveForward();
     void moveToSide();
-    void rotateCamera();
     void setSpeed(float newSpeed);
-    void setRotationSpeed(float newSpeed);
-
-
+    void yawNodeRotation();
+    void verticalRotation();
+    void setYRotation(Radian rads);
+    void setPRotaion(Radian rads);
 
 };
 

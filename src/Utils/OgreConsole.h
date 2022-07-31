@@ -1,32 +1,21 @@
-#include "OgreConsole.h"
+#ifndef _OGRE_CONSOLE_H_
+#define _OGRE_CONSOLE_H_
 
-OgreConsole::OgreConsole(int commandHistory, int textHistory, bool echo,
-        ConsoleFunction defaultFunction, int commandlineIndex)
-        :Console(commandHistory, textHistory, echo, defaultFunction, commandlineIndex)
+#include "Console.h"
+#include <OgreSingleton.h>
+#include <iostream>
+
+class OgreConsole : public Console, public Ogre::Singleton
 {
-}
+public:
+    OgreConsole(int commandHistory = 20, int textHistory = 50, bool echo = false,
+        ConsoleFunction defaultFunction = NULL, int commandlineIndex = 0);
+    ~OgreConsole();
 
-OgreConsole::~OgreConsole()
-{
-}
+    static OgreConsole* getSingletonPtr(void);
+    static OgreConsole& getSingleton(void);
 
-template<> OgreConsole* Ogre::Singleton<OgreConsole>::ms_Singleton = 0;
+    void render();
+};
 
-OgreConsole* OgreConsole::getSingletonPtr(void)
-{
-    return ms_Singleton;
-}
-
-OgreConsole& OgreConsole::getSingleton(void)
-{
-    assert(ms_Singleton);
-    return (*ms_Singleton);
-}
-
-void OgreConsole::render()
-{
-    for(std::list<std::string>::const_iterator iter = textBuffer.begin(); iter != textBuffer.end(); ++iter)
-    {
-        std::cout << *iter << "\n";
-    }
-}
+#endif
