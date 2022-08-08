@@ -12,8 +12,8 @@ OCamera::~OCamera(){
 
 void OCamera::init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan){
   setSpeed(10.0);
-  setYRotation(Radian(1.0));
-  setPRotaion(Radian(1.0));
+  setYRotation(Radian(0.5));
+  setPRotaion(Radian(0.5));
   cam = newScnMan->createCamera("Test");
   SceneNode* rootNode;
   rootNode = newScnMan->getRootSceneNode();
@@ -50,7 +50,7 @@ void OCamera::moveForward(){
   Vector3 cPos = getCurrentPosition();
   newPos = Vector3((cPos.x+((newPos.x)*movementSpeed)),(cPos.y+((newPos.y)*movementSpeed)),(cPos.z+((newPos.z)*movementSpeed)));
   camNode->setPosition(newPos);*/
-  cam->moveRelative(0.0,1.0,0.0);}
+/*  cam->moveRelative(0.0,1.0,0.0);*/}
 
 void OCamera::moveToSide(){}
 void OCamera::setSpeed(float newSpeed){movementSpeed = newSpeed;}
@@ -58,5 +58,5 @@ void OCamera::setSpeed(float newSpeed){movementSpeed = newSpeed;}
 
 void OCamera::setYRotation(Radian rad){yRotationSpeed = rad;}
 void OCamera::setPRotaion(Radian rad){pRotationSpeed = rad;}
-void OCamera::yawNodeRotation(){yawNode->yaw(yRotationSpeed);}
-void OCamera::pitchNodeRotation(){pitchNode->pitch(pRotationSpeed);}
+void OCamera::yawNodeRotation(bool dir){if(dir==true){yawNode->yaw(yRotationSpeed);}else{yawNode->yaw(-yRotationSpeed);}}
+void OCamera::pitchNodeRotation(bool dir){if(dir==true){pitchNode->pitch(yRotationSpeed);}else{pitchNode->pitch(-yRotationSpeed);}}

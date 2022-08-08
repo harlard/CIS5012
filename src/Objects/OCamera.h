@@ -32,8 +32,8 @@ class OCamera : public Object4o{
     void verticalRotation();
     void setYRotation(Radian rads);
     void setPRotaion(Radian rads);
-    void pitchNodeRotation();
-    void yawNodeRotation();
+    void pitchNodeRotation(bool dir);
+    void yawNodeRotation(bool dir);
 
 
 };
