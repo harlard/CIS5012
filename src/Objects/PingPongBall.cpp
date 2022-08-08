@@ -1,19 +1,19 @@
-#ifndef PINGPONGBALL_H_
-#define PINGPONGBALL_H_
+#include "PingPongBall.h"
 
-#include "Ogre.h"
-#include "Object4o.h"
-#include "OgreCameraMan.h"
-#include "OgreApplicationContext.h"
 
-using namespace Ogre;
-using namespace OgreBites;
+void PingPongBall::createRigidBody(float bodyMass)
+{
+  colShape = new btBoxShape(btVector3(getOgreBound().x/2.0f, getOgreBound().y/2.0f, getOgreBound().z/2.0f));
 
-class PingPongBall : public Object4o{
-    private :
+  /// Create Dynamic Objects
 
-    public :
-    void createRigidBody(float mass);
-};
+  startTransform.setIdentity();
 
-#endif
+  Quaternion quat2 = ogreNode->_getDerivedOrientation();
+  startTransform.setRotation(btQuaternion(quat2.x, quat2.y, quat2.z, quat2.w));
+
+  Vector3 pos = ogreNode->_getDerivedPosition();
+  startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
+
+
+}

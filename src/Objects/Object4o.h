@@ -19,7 +19,8 @@ using namespace std;
 class Object4o
 {
     private:
-
+    public:
+      
       //ogre variable
       SceneNode* ogreNode; // node on ogre
       Entity* objEnt;// entity for ogre
@@ -39,7 +40,6 @@ class Object4o
       Radian rads; // store current rads
       string nameMesh;// name of current form
       Vector3  looking;
-    public:
       Object4o();
       ~Object4o();
       void virtual init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
