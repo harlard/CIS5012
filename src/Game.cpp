@@ -17,6 +17,7 @@ using namespace Ogre;
 using namespace std;
 
 #include "OgreBullet.h"
+using namespace std;
 
 Game::Game() : ApplicationContext("BeerPong")
 {
@@ -74,6 +75,7 @@ Game::~Game()
 
 void Game::setup()
 {
+
     // do not forget to call the base first
   //  ApplicationContext::RenderWindow* mWindow = mRoot->createRenderWindow("Main", 1600, 800, false );
 //    ApplicationContext::createWindow("Game",1600,800, false/*Ogre::NameValuePairList  	miscParams = Ogre::NameValuePairList()*/);
@@ -82,12 +84,48 @@ void Game::setup()
     addInputListener(this);
 
     // get a pointer to the already created root
-    Root *root = getRoot();
-    scnMgr = root->createSceneManager();
+    //Root *root = new Root("root")
+    scnMgr = getRoot()->createSceneManager();
+
+    //RenderSystem::setConfigOptions("Video Mode","1600 x 800");
+
 
     // register our scene with the RTSS
     RTShader::ShaderGenerator *shadergen = RTShader::ShaderGenerator::getSingletonPtr();
     shadergen->addSceneManager(scnMgr);
+/*
+	// tell Root not to load from any plugins or settings file
+	Root *root = new Root("", "");
+
+	// Load feature plugins. Scene managers will register
+	// themselves for all scene types they support
+	root->loadPlugin("Plugin_CgProgramManager");
+	root->loadPlugin("Plugin_OctreeSceneManager");
+
+	// load rendersystem plugin(s). The order is important in that GL
+	// should be available on on platforms, while D3D9 would be available
+	// only on Windows -- the try/catch will intercept the exception in this
+	// case where D3D9 is not available and continue gracefully.
+
+		// We can initialize Root here if we want. "false" tells Root NOT to create
+		// a render window for us
+		root->initialise(false);
+
+		// set up the render window with all default params
+		  mWindow->create(
+			"Manual Ogre Window",	// window title
+			800,					// window width, in pixels
+			600,					// window height, in pixels
+			false,					// fullscreen or not
+			0);						// use defaults for all other values
+      scnMgr = root->createSceneManager();
+*/
+
+		// from here you can set up your camera and viewports as normal
+		// get a pointer to the default base scene manager -- sufficient for our purposes
+
+		// create a single camera, and a viewport that takes up the whole window (default behavior
+
 
     bulletInit();
 
@@ -99,8 +137,8 @@ void Game::setup()
 
     setupBoxMesh();
     object = new Object4o();
-    object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
 
+    object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
 
 }
 
@@ -109,7 +147,8 @@ void Game::setupCamera()
     // Setup viewport for the camera.
     Viewport *vp;
     camO = new OCamera();
-    camO->init(Vector3(500.0,500.0,500.0), Vector3(-1.0,1.0,-1.0), scnMgr);
+
+    camO->init(Vector3(500.0,500.0,500.0), Vector3(0.0,1.0,0.0), scnMgr);
 
     vp = getRenderWindow()->addViewport(camO->getCam());
     camO->setAspect(Real(vp->getActualWidth()), Real(vp->getActualHeight()));
@@ -302,7 +341,9 @@ bool Game::frameStarted(const Ogre::FrameEvent &evt)
     // Be sure to call base class - otherwise events are not polled.
     ApplicationContext::frameStarted(evt);
     //camO->moveForward();
-    //camO->verticalRotation();
+    camO->yawNodeRotation();
+    camO->pitchNodeRotation();
+    camO->moveForward();
 
     if (this->dynamicsWorld != NULL)
     {
@@ -399,7 +440,6 @@ void Game::collisionDetection()
 
 bool Game::frameEnded(const Ogre::FrameEvent &evt)
 {
-  camO->verticalRotation();
     if (this->dynamicsWorld != NULL)
     {
         // Bullet can work with a fixed timestep

@@ -15,9 +15,10 @@ class OCamera : public Object4o{
       float movementSpeed;
       Radian yRotationSpeed;
       Radian pRotationSpeed;
+      SceneNode *camNode;  // I got some problem using ogreNode from object4o ao i replace for this once
       SceneNode *pitchNode; // use to do rotation in YZ
       SceneNode *yawNode;   //  use to do rotation in XZ
-      SceneNode *rollnode;
+      SceneNode *rollNode;
     public :
     OCamera();
     ~OCamera();
@@ -28,10 +29,12 @@ class OCamera : public Object4o{
     void moveForward();
     void moveToSide();
     void setSpeed(float newSpeed);
-    void yawNodeRotation();
     void verticalRotation();
     void setYRotation(Radian rads);
     void setPRotaion(Radian rads);
+    void pitchNodeRotation();
+    void yawNodeRotation();
+
 
 };
 

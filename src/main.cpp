@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
 		game.initApp();
 		game.getRoot()->startRendering();
 		game.closeApp();
+
 	}
 	catch (Ogre::Exception& e)
 	{

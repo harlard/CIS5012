@@ -18,8 +18,8 @@ Object4o::~Object4o(){} // Weird!!!!
 
 void Object4o::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
   setScnMan(newScnMan);
-  setPositon(newPos); // set current position
-  setScale(newSca); // set current scale
+  setNewPosition(newPos); // set current position
+  setNewScale(newSca); // set current scale
 
 }
 void Object4o::setScnMan(SceneManager* newScnMan){
@@ -29,17 +29,17 @@ void Object4o::setScnMan(SceneManager* newScnMan){
 }
 
 void Object4o::newEntity(SceneManager* newScnMan){
-  nameMesh = "cube.mesh";
+  nameMesh = "Sphere.mesh";
   objEnt = newScnMan->createEntity(nameMesh);
   }
 
-void Object4o::setPositon(Vector3 newPos){
+void Object4o::setNewPosition(Vector3 newPos){
   position = newPos; // store current postion
   ogreNode->setPosition(position);//set postion in ogreNode
 
     }
 
-void Object4o::setScale(Vector3 newSca){
+void Object4o::setNewScale(Vector3 newSca){
   scale = newSca;
   ogreNode->setScale(newSca);
   }
@@ -139,8 +139,8 @@ void Object4o::update()
 
 void Object4o::attachNodeTo(SceneNode *nodeTo){ogreNode = nodeTo->createChildSceneNode();}
 
-Vector3 Object4o::getPosition(){return position;}
-Vector3 Object4o::getScale(){return scale;}
+Vector3 Object4o::getCurrentPosition(){return position;}
+Vector3 Object4o::getCurrentScale(){return scale;}
 void Object4o::getRotaion(){}
 Vector3 Object4o::getAxis(){return axis;}
 Radian Object4o::getRad(){return rads;}
@@ -151,3 +151,4 @@ float Object4o::getMass(){return cMass;}
 void Object4o::setLookAt(Vector3 newLook){ looking = newLook; looking.normalise(); ogreNode->lookAt(looking, Node::TransformSpace::TS_WORLD);}
 Vector3 Object4o::getLooking(){return looking;}
 void Object4o::attachCamera(Camera *cam){ogreNode->attachObject(cam);}
+void Object4o::attachThisNode(SceneNode *node){node = ogreNode->createChildSceneNode();}

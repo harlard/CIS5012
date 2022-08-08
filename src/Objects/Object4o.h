@@ -45,8 +45,8 @@ class Object4o
       void virtual init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
       void setScnMan(SceneManager* newScnMan); // attach to ogre node
       void newEntity(SceneManager* newScnMan);// createMesh
-      void setPositon(Vector3 newPos); //set a new position
-      void setScale(Vector3 newSca); // set a new scale
+      void setNewPosition(Vector3 newPos); //set a new position
+      void setNewScale(Vector3 newSca); // set a new scale
       void setRotation(Vector3 axis,Radian rads); //set new rotation
       void setMass(); // set mass
       void  virtual update(); // update object
@@ -58,8 +58,8 @@ class Object4o
       void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics scnMan
       void setMass(float newMass); //set mass
       void setBoundingForOgre();
-      Vector3 getPosition();
-      Vector3 getScale();
+      Vector3 getCurrentPosition();
+      Vector3 getCurrentScale();
       void getRotaion();
       Vector3 getAxis();
       Radian getRad();
@@ -71,6 +71,7 @@ class Object4o
       void getName();
       Vector3 getLooking();
       void attachCamera(Camera *cam);
+      void attachThisNode(SceneNode *node);
 
 
 
