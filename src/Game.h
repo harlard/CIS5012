@@ -6,8 +6,7 @@
 #include "OgreRTShaderSystem.h"
 #include "OgreApplicationContext.h"
 #include "OgreCameraMan.h"
-#include "Objects/Object4o.h"
-#include "Objects/OCamera.h"
+#include "Objects/Objects.h"
 //#include "Utils/Utils.h"
 
 
@@ -26,7 +25,7 @@ class Game : public ApplicationContext, public InputListener
 {
 private:
     SceneManager *scnMgr;
-    Object4o *object;
+    PingPongBall *ball;
     RenderWindow* mWindow;
     OCamera *camO;
 

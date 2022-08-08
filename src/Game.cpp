@@ -23,7 +23,7 @@ Game::Game() : ApplicationContext("BeerPong")
 {
   dynamicsWorld = NULL;
   mWindow = nullptr;
-  object = nullptr;
+  ball = nullptr;
 }
 
 Game::~Game()
@@ -77,16 +77,16 @@ void Game::setup()
 {
 
     // do not forget to call the base first
-  //  ApplicationContext::RenderWindow* mWindow = mRoot->createRenderWindow("Main", 1600, 800, false );
 //    ApplicationContext::createWindow("Game",1600,800, false/*Ogre::NameValuePairList  	miscParams = Ogre::NameValuePairList()*/);
   //  RenderWindow* mWindow = mRoot->createWindow("Main", 800, 600, false );
     ApplicationContext::setup();
     addInputListener(this);
+//    ApplicationContext::RenderWindow* mWindow = mRoot->createRenderWindow("Main", 1600, 800, false );
 
     // get a pointer to the already created root
     //Root *root = new Root("root")
     scnMgr = getRoot()->createSceneManager();
-
+    //windowResized();
     //RenderSystem::setConfigOptions("Video Mode","1600 x 800");
 
 
@@ -136,9 +136,9 @@ void Game::setup()
     setupLights();
 
     setupBoxMesh();
-    object = new Object4o();
+    ball = new Object4o();
 
-    object->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
+    ball->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
 
 }
 
@@ -341,9 +341,7 @@ bool Game::frameStarted(const Ogre::FrameEvent &evt)
     // Be sure to call base class - otherwise events are not polled.
     ApplicationContext::frameStarted(evt);
     //camO->moveForward();
-    camO->yawNodeRotation();
-    camO->pitchNodeRotation();
-    camO->moveForward();
+
 
     if (this->dynamicsWorld != NULL)
     {
@@ -514,6 +512,22 @@ bool Game::keyPressed(const KeyboardEvent &evt)
     {
         getRoot()->queueEndRendering();
     }
+    if (evt.keysym.sym == SDLK_UP)
+    {
+        camO->pitchNodeRotation(true);
+      }
+    if (evt.keysym.sym == SDLK_DOWN)
+      {
+          camO->pitchNodeRotation(false);
+        }
+    if (evt.keysym.sym == SDLK_RIGHT)
+        {
+          camO->yawNodeRotation(false);
+          }
+    if (evt.keysym.sym == SDLK_LEFT)
+    {
+        camO->yawNodeRotation(true);
+      }
     return true;
 }
 

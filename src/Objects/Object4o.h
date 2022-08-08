@@ -19,6 +19,7 @@ using namespace std;
 class Object4o
 {
     private:
+
       //ogre variable
       SceneNode* ogreNode; // node on ogre
       Entity* objEnt;// entity for ogre
@@ -31,14 +32,13 @@ class Object4o
       btScalar angularDamping; /**< Damping force on the angular motion of the body, kind of air/friction */
       float cMass;   // Mass
       btTransform startTransform;
-        // custom variables
+      // custom variables
       Vector3 position; // store current position
       Vector3 scale; // store current scale
       Vector3 axis; // store current axis
       Radian rads; // store current rads
       string nameMesh;// name of current form
       Vector3  looking;
-
     public:
       Object4o();
       ~Object4o();
@@ -53,7 +53,7 @@ class Object4o
       void attachToRoot(SceneManager* newScnMan);
       void attachNodeTo(SceneNode *nodeTo); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
-      void createRigidBody(float mass); // set bullet
+      void  virtual createRigidBody(float mass); // set bullet
       void addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes); //Create a collider
       void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics scnMan
       void setMass(float newMass); //set mass

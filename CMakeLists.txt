@@ -22,13 +22,14 @@ set(HDRS
 	./src/Game.h
 	./src/Objects/Object4o.h
 	./src/Objects/OCamera.h
-
+	./src/Objects/PingPongBall.h
 )
 
 set(SRCS
 	./src/Game.cpp
 	./src/Objects/Object4o.cpp
 	./src/Objects/OCamera.cpp
+	./src/Objects/PingPongBall.cpp
 	./src/main.cpp
 
 )
