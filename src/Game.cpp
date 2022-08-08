@@ -136,9 +136,9 @@ void Game::setup()
     setupLights();
 
     setupBoxMesh();
-    ball = new Object4o();
+    ball = new PingPongBall();
 
-    ball->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(100.0,100.0,100.0));
+    ball->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(10.0,10.0,10.0));
 
 }
 
