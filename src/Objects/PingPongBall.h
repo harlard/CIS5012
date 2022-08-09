@@ -4,7 +4,7 @@
 #include "Ogre.h"
 #include "Object4o.h"
 #include "OgreCameraMan.h"
-#include "OgreApplicationContext.h"
+
 
 using namespace Ogre;
 using namespace OgreBites;
