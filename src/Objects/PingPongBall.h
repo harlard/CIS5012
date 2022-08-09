@@ -13,7 +13,9 @@ class PingPongBall : public Object4o{
     private :
 
     public :
+    void init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
     void createRigidBody(float mass);
+    void newEntity(SceneManager* newScnMan);
 };
 
 #endif

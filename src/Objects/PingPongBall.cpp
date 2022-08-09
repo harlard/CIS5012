@@ -1,9 +1,18 @@
 #include "PingPongBall.h"
 
+void PingPongBall::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
+  setScnMan(newScnMan);
+  setNewPosition(newPos); // set current position
+  setNewScale(newSca); // set current scale
+}
+void PingPongBall::newEntity(SceneManager* newScnMan){
+  nameMesh = "PingPongBall.mesh";
+  objEnt = newScnMan->createEntity(nameMesh);
+  }
 
 void PingPongBall::createRigidBody(float bodyMass)
 {
-  colShape = new btBoxShape(btVector3(getOgreBound().x/2.0f, getOgreBound().y/2.0f, getOgreBound().z/2.0f));
+  colShape = new btSphereShape(btScalar(getOgreBound().x/2.0f));
 
   /// Create Dynamic Objects
 
@@ -14,6 +23,6 @@ void PingPongBall::createRigidBody(float bodyMass)
 
   Vector3 pos = ogreNode->_getDerivedPosition();
   startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
-
+  setMass(bodyMass);
 
 }

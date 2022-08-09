@@ -135,10 +135,8 @@ void Game::setup()
 
     setupLights();
 
-    setupBoxMesh();
-    ball = new PingPongBall();
+    setupBall();
 
-    ball->init(scnMgr, Vector3(100.0,100.0,100.0),Vector3(10.0,10.0,10.0));
 
 }
 
@@ -176,96 +174,6 @@ void Game::bulletInit()
     dynamicsWorld->setGravity(btVector3(0, -10, 0));
 }
 
-void Game::setupBoxMesh()
-{
-    /* Entity *box = scnMgr->createEntity("Table.mesh");
-    box->setCastShadows(true);
-
-    SceneNode *thisSceneNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-    thisSceneNode->attachObject(box);
-
-    // Axis
-    Vector3 axis(1.0, 1.0, 0.0);
-    axis.normalise();
-
-    // angle
-    Radian rads(Degree(60.0));
-
-    // quat from axis angle
-    Quaternion quat(rads, axis);
-
-    // thisSceneNode->setOrientation(quat);
-    thisSceneNode->setScale(100.0, 100.0, 100.0);
-
-    // get bounding box here.
-    thisSceneNode->_updateBounds();
-    const AxisAlignedBox &b = thisSceneNode->_getWorldAABB(); // box->getWorldBoundingBox();
-    thisSceneNode->showBoundingBox(true);
-    // std::cout << b << std::endl;
-    // std::cout << "AAB [" << (float)b.x << " " << b.y << " " << b.z << "]" << std::endl;
-
-    // Now I have a bounding box I can use it to make the collision shape.
-    // I'll rotate the scene node and later the collision shape.
-    thisSceneNode->setOrientation(quat);
-
-    thisSceneNode->setPosition(0, 200, 0);
-
-    Vector3 meshBoundingBox(b.getSize());
-
-    if (meshBoundingBox == Vector3::ZERO)
-    {
-        std::cout << "bounding voluem size is zero." << std::endl;
-    }
-
-    // create a dynamic rigidbody
-
-    btCollisionShape *colShape = Ogre::Bullet::createBoxCollider(box);
-
-    //  btCollisionShape* colShape = new btBoxShape(btVector3(meshBoundingBox.x/2.0f, meshBoundingBox.y/2.0f, meshBoundingBox.z/2.0f));
-    //  std::cout << "Mesh box col shape [" << (float)meshBoundingBox.x << " " << meshBoundingBox.y << " " << meshBoundingBox.z << "]" << std::endl;
-    // btCollisionShape* colShape = new btBoxShape(btVector3(10.0,10.0,10.0));
-    // btCollisionShape* colShape = new btSphereShape(btScalar(1.));
-    collisionShapes.push_back(colShape);
-
-    /// Create Dynamic Objects
-    btTransform startTransform;
-    startTransform.setIdentity();
-
-    // startTransform.setOrigin(btVector3(0, 200, 0));
-
-    Vector3 pos = thisSceneNode->_getDerivedPosition();
-    startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
-
-    Quaternion quat2 = thisSceneNode->_getDerivedOrientation();
-    startTransform.setRotation(btQuaternion(quat2.x, quat2.y, quat2.z, quat2.w));
-
-    btScalar mass(1.f);
-
-    // rigidbody is dynamic if and only if mass is non zero, otherwise static
-    bool isDynamic = (mass != 0.f);
-
-    btVector3 localInertia(0, 0, 0);
-    if (isDynamic)
-    {
-        // Debugging
-        // std::cout << "I see the cube is dynamic" << std::endl;
-        colShape->calculateLocalInertia(mass, localInertia);
-    }
-
-    std::cout << "Local inertia [" << (float)localInertia.x() << " " << localInertia.y() << " " << localInertia.z() << "]" << std::endl;
-
-    // using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-    btDefaultMotionState *myMotionState = new btDefaultMotionState(startTransform);
-    btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-    btRigidBody *body = new btRigidBody(rbInfo);
-
-    // Link to ogre
-    body->setUserPointer((void *)thisSceneNode);
-
-    //  body->setRestitution(0.5);
-
-    dynamicsWorld->addRigidBody(body);*/
-}
 
 void Game::setupFloor()
 {
@@ -360,6 +268,7 @@ bool Game::frameStarted(const Ogre::FrameEvent &evt)
         collisionDetection();
     }
 
+
     return true;
 }
 
@@ -382,6 +291,7 @@ void Game::syncGraphicsToPhysics()
             {
                 btQuaternion orientation = trans.getRotation();
                 Ogre::SceneNode *sceneNode = static_cast<Ogre::SceneNode *>(userPointer);
+                std::cout << "Got Error" << std::endl;
                 sceneNode->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
                 sceneNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
             }
@@ -537,26 +447,9 @@ bool Game::mouseMoved(const MouseMotionEvent &evt)
     return true;
 }
 
-/*void Game::setupObject()
+void Game::setupBall()
 {
-    SceneNode* sceneRoot = scnMgr->getRootSceneNode();
-    float mass = 1.0f;
-
-    // Axis
-    Vector3 axis(1.0,1.0,0.0);
-    axis.normalise();
-
-    //angle
-    Radian rads(Degree(25.0));
-
-    object = new Object4o();
-    object->createMesh(scnMgr);
-    object->attachToNode(sceneRoot);
-
-    object->setRotation(axis,rads);
-    object->setPosition(20.0f,20.0f,20.0f);
-
-    object->createRigidBody(mass);
-    object->addToCollisionShapes(collisionShapes);
-    object->addToDynamicsWorld(dynamicsWorld);
-}*/
+  ball = new PingPongBall();
+  ball->init(scnMgr, Vector3(1000.0,1000.0,1000.0),Vector3(10.0,10.0,10.0));
+  ball->initBullet(1.0, collisionShapes, dynamicsWorld);
+}
