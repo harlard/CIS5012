@@ -148,7 +148,7 @@ void Game::setupCamera()
     Viewport *vp;
     camO = new OCamera();
 
-    camO->init(Vector3(150.0,250.0,0.0), Vector3(0.0,0.5,1.0), scnMgr);
+    camO->init(Vector3(200.0,200.0,0.0), Vector3(0.0,0.5,1.0), scnMgr);
 
     vp = getRenderWindow()->addViewport(camO->getCam());
     camO->setAspect(Real(vp->getActualWidth()), Real(vp->getActualHeight()));
@@ -472,5 +472,5 @@ void Game::setupTable()
 {
   table = new Table();
   table->init(scnMgr, Vector3(0.0,100.0,0.0),Vector3(100.0,100.0,100.0));
-  table->initBullet(100.0, collisionShapes);
+  table->initBullet(0.0, collisionShapes, dynamicsWorld);
 }
