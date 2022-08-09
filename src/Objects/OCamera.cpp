@@ -12,8 +12,8 @@ OCamera::~OCamera(){
 
 void OCamera::init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan){
   setSpeed(10.0);
-  setYRotation(Radian(0.5));
-  setPRotaion(Radian(0.5));
+  setYRotation(Radian(0.02));
+  setPRotaion(Radian(0.02));
   cam = newScnMan->createCamera("Test");
   SceneNode* rootNode;
   rootNode = newScnMan->getRootSceneNode();
@@ -28,6 +28,8 @@ void OCamera::init(Vector3 newPos, Vector3 newLook, SceneManager* newScnMan){
   rollNode = pitchNode->createChildSceneNode();
   rollNode->setPosition(0.0,0.0,0.0 );
   rollNode->attachObject(cam);
+  yawNode->yaw(Radian(1.57));
+  pitchNode->pitch(Radian(-0.34));
   }
 
 
