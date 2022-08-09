@@ -23,6 +23,9 @@ set(HDRS
 	./src/Objects/Object4o.h
 	./src/Objects/OCamera.h
 	./src/Objects/PingPongBall.h
+	./src/Objects/Table.h
+	./src/Objects/Cup.h
+
 )
 
 set(SRCS
@@ -30,6 +33,8 @@ set(SRCS
 	./src/Objects/Object4o.cpp
 	./src/Objects/OCamera.cpp
 	./src/Objects/PingPongBall.cpp
+	./src/Objects/Table.cpp
+	./src/Objects/Cup.cpp
 	./src/main.cpp
 
 )
