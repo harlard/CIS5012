@@ -24,6 +24,7 @@ Game::Game() : ApplicationContext("BeerPong")
   dynamicsWorld = NULL;
   mWindow = nullptr;
   ball = nullptr;
+  table = nullptr;
 }
 
 Game::~Game()
@@ -137,6 +138,7 @@ void Game::setup()
 
     setupBall();
 
+    setupTable();
 
 }
 
@@ -146,7 +148,7 @@ void Game::setupCamera()
     Viewport *vp;
     camO = new OCamera();
 
-    camO->init(Vector3(500.0,500.0,500.0), Vector3(0.0,1.0,0.0), scnMgr);
+    camO->init(Vector3(150.0,250.0,0.0), Vector3(0.0,0.5,1.0), scnMgr);
 
     vp = getRenderWindow()->addViewport(camO->getCam());
     camO->setAspect(Real(vp->getActualWidth()), Real(vp->getActualHeight()));
@@ -274,6 +276,7 @@ bool Game::frameStarted(const Ogre::FrameEvent &evt)
 
 void Game::syncGraphicsToPhysics()
 {
+
     // update positions of all objects
     for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
       {
@@ -289,10 +292,8 @@ void Game::syncGraphicsToPhysics()
              void *userPointer = body->getUserPointer();
 
              // Player should know enough to update itself.
-             if(userPointer == ball)
-             {
-                 // Ignore player, he's always updated!
-             }
+             if(userPointer == ball){ /* Ignore player, he's always updated!*/ }
+             else if(userPointer == table){ /* Ignore player, he's always updated!*/ }
              else //This is just to keep the other objects working.
              {
                if (userPointer)
@@ -312,6 +313,7 @@ void Game::syncGraphicsToPhysics()
 
       //Update player here, his movement is not dependent on collisions.
       ball->update();
+      table->update();
     }
 
 void Game::collisionDetection()
@@ -375,7 +377,7 @@ bool Game::frameEnded(const Ogre::FrameEvent &evt)
 void Game::setupLights()
 {
     // Setup Abient light
-    scnMgr->setAmbientLight(ColourValue(0, 0, 0));
+    scnMgr->setAmbientLight(ColourValue(1, 1, 1));
     scnMgr->setShadowTechnique(ShadowTechnique::SHADOWTYPE_STENCIL_MODULATIVE);
 
     // Add a spotlight
@@ -389,8 +391,8 @@ void Game::setupLights()
 
     // Create a schene node for the spotlight
     SceneNode *spotLightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-    spotLightNode->setDirection(-1, -1, 0);
-    spotLightNode->setPosition(Vector3(200, 200, 0));
+    spotLightNode->setDirection(0, -1, 0);
+    spotLightNode->setPosition(Vector3(0, 200, 0));
 
     // Add spotlight to the scene node.
     spotLightNode->attachObject(spotLight);
@@ -463,4 +465,12 @@ void Game::setupBall()
   ball = new PingPongBall();
   ball->init(scnMgr, Vector3(0.0,500.0,0.0),Vector3(1.0,1.0,1.0));
   ball->initBullet(100.0, collisionShapes, dynamicsWorld);
+}
+
+
+void Game::setupTable()
+{
+  table = new Table();
+  table->init(scnMgr, Vector3(0.0,100.0,0.0),Vector3(100.0,100.0,100.0));
+  table->initBullet(100.0, collisionShapes);
 }

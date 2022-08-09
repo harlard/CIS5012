@@ -28,6 +28,7 @@ private:
     PingPongBall *ball;
     RenderWindow* mWindow;
     OCamera *camO;
+    Table *table;
 
   //  Object4o *object;
     //// collision configuration.
@@ -69,4 +70,5 @@ public:
     void syncGraphicsToPhysics();
     void collisionDetection();
     void setupBall();
+    void setupTable();
 };
