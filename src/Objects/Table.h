@@ -12,7 +12,7 @@ class Table : public Object4o{
 
     public :
     void newEntity(SceneManager* newScnMan);
-    void initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes);
+  //  void initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes);
 };
 
 #endif
