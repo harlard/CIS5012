@@ -1,4 +1,5 @@
 #include "Object4o.h"
+#include <iostream>
 //add funtionality
 Object4o::Object4o(){
 
@@ -24,12 +25,13 @@ void Object4o::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
 }
 void Object4o::setScnMan(SceneManager* newScnMan){
   newEntity(newScnMan);// set mesh by using a string parameter
-  attachToRoot(newScnMan);
+  SceneNode *root = newScnMan->getRootSceneNode();
+  attachNodeTo(root);
 
 }
 
 void Object4o::newEntity(SceneManager* newScnMan){
-  nameMesh = "Sphere.mesh";
+  nameMesh = "PingPongBall.mesh";
   objEnt = newScnMan->createEntity(nameMesh);
   }
 
@@ -94,7 +96,8 @@ void Object4o::setMass(float newMass){
   body->setDamping(linearDamping,angularDamping);
 
   //Set the user pointer to this object.
-  body->setUserPointer((void*)this);}
+  body->setUserPointer((void*)this);
+}
 void Object4o::createRigidBody(float bodyMass)
 {
   colShape = new btBoxShape(btVector3(ogreBound.x/2.0f, ogreBound.y/2.0f, ogreBound.z/2.0f));
@@ -109,6 +112,7 @@ void Object4o::createRigidBody(float bodyMass)
   Vector3 pos = ogreNode->_getDerivedPosition();
   startTransform.setOrigin(btVector3(pos.x, pos.y, pos.z));
 
+  setMass(bodyMass);
 
 }
 
@@ -152,3 +156,8 @@ void Object4o::setLookAt(Vector3 newLook){ looking = newLook; looking.normalise(
 Vector3 Object4o::getLooking(){return looking;}
 void Object4o::attachCamera(Camera *cam){ogreNode->attachObject(cam);}
 void Object4o::attachThisNode(SceneNode *node){node = ogreNode->createChildSceneNode();}
+void Object4o::initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes, btDiscreteDynamicsWorld* dynamicsWorld){
+  createRigidBody(mass);
+  addToCollisionShapes(collisionShapes);
+  addToDynamicsWorld(dynamicsWorld);
+}

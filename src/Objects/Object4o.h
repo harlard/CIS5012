@@ -20,7 +20,7 @@ class Object4o
 {
     private:
     public:
-      
+
       //ogre variable
       SceneNode* ogreNode; // node on ogre
       Entity* objEnt;// entity for ogre
@@ -43,7 +43,7 @@ class Object4o
       Object4o();
       ~Object4o();
       void virtual init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
-      void setScnMan(SceneManager* newScnMan); // attach to ogre node
+      void virtual setScnMan(SceneManager* newScnMan); // attach to ogre node
       void newEntity(SceneManager* newScnMan);// createMesh
       void setNewPosition(Vector3 newPos); //set a new position
       void setNewScale(Vector3 newSca); // set a new scale
@@ -72,6 +72,8 @@ class Object4o
       Vector3 getLooking();
       void attachCamera(Camera *cam);
       void attachThisNode(SceneNode *node);
+      void initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes, btDiscreteDynamicsWorld* dynamicsWorld);
+
 
 
 
