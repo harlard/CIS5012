@@ -1,3 +1,5 @@
 #include "Object4o.h"
 #include "OCamera.h"
 #include "PingPongBall.h"
+#include "Table.h"
+#include "Cup.h"

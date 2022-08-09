@@ -44,13 +44,12 @@ class Object4o
       ~Object4o();
       void virtual init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
       void virtual setScnMan(SceneManager* newScnMan); // attach to ogre node
-      void newEntity(SceneManager* newScnMan);// createMesh
+      void virtual newEntity(SceneManager* newScnMan);// createMesh
       void setNewPosition(Vector3 newPos); //set a new position
       void setNewScale(Vector3 newSca); // set a new scale
       void setRotation(Vector3 axis,Radian rads); //set new rotation
       void setMass(); // set mass
       void  virtual update(); // update object
-      void attachToRoot(SceneManager* newScnMan);
       void attachNodeTo(SceneNode *nodeTo); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
       void  virtual createRigidBody(float mass); // set bullet
@@ -72,7 +71,7 @@ class Object4o
       Vector3 getLooking();
       void attachCamera(Camera *cam);
       void attachThisNode(SceneNode *node);
-      void initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes, btDiscreteDynamicsWorld* dynamicsWorld);
+      void  virtual initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes, btDiscreteDynamicsWorld* dynamicsWorld);
 
 
 

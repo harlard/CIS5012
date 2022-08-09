@@ -20,14 +20,16 @@ Object4o::~Object4o(){} // Weird!!!!
 void Object4o::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
   setScnMan(newScnMan);
   setNewPosition(newPos); // set current position
+  ogreNode->attachObject(objEnt);
   setNewScale(newSca); // set current scale
+  boundingBoxFromOgre();
+
 
 }
 void Object4o::setScnMan(SceneManager* newScnMan){
   newEntity(newScnMan);// set mesh by using a string parameter
   SceneNode *root = newScnMan->getRootSceneNode();
   attachNodeTo(root);
-
 }
 
 void Object4o::newEntity(SceneManager* newScnMan){
@@ -52,14 +54,7 @@ Quaternion quat(rads, axis);
 ogreNode->setOrientation(quat);
 
 }
-void Object4o::attachToRoot(SceneManager* newScnMan){
-   SceneNode* rootNode;
-   rootNode = newScnMan->getRootSceneNode();
-   attachNodeTo(rootNode);
-   ogreNode->attachObject(objEnt);
-   ogreNode->setScale(1.0f,1.0f,1.0f);
-   boundingBoxFromOgre();
-}
+
 void Object4o::boundingBoxFromOgre()
 {
   //get bounding box here.
