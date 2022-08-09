@@ -55,8 +55,6 @@ public:
     void setup();
 
     void setupCamera();
-    void setupObject();
-    void setupBoxMesh();
     void setupFloor();
 
     void setupLights();
@@ -70,4 +68,5 @@ public:
     void bulletInit();
     void syncGraphicsToPhysics();
     void collisionDetection();
+    void setupBall();
 };
