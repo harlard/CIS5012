@@ -171,7 +171,7 @@ void Game::bulletInit()
 
     dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
 
-    dynamicsWorld->setGravity(btVector3(0, -10, 0));
+    dynamicsWorld->setGravity(btVector3(0, -100, 0));
 }
 
 
@@ -276,32 +276,43 @@ void Game::syncGraphicsToPhysics()
 {
     // update positions of all objects
     for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
-    {
-        btCollisionObject *obj = dynamicsWorld->getCollisionObjectArray()[j];
-        btRigidBody *body = btRigidBody::upcast(obj);
-        btTransform trans;
+      {
+          btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
+          btRigidBody* body = btRigidBody::upcast(obj);
+          btTransform trans;
 
-        if (body && body->getMotionState())
-        {
-            body->getMotionState()->getWorldTransform(trans);
+          if (body && body->getMotionState())
+          {
+             body->getMotionState()->getWorldTransform(trans);
 
-            /* https://oramind.com/ogre-bullet-a-beginners-basic-guide/ */
-            void *userPointer = body->getUserPointer();
-            if (userPointer)
-            {
-                btQuaternion orientation = trans.getRotation();
-                Ogre::SceneNode *sceneNode = static_cast<Ogre::SceneNode *>(userPointer);
-                std::cout << "Got Error" << std::endl;
-                sceneNode->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
-                sceneNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
-            }
-        }
-        else
-        {
-            trans = obj->getWorldTransform();
-        }
+             /* https://oramind.com/ogre-bullet-a-beginners-basic-guide/ */
+             void *userPointer = body->getUserPointer();
+
+             // Player should know enough to update itself.
+             if(userPointer == ball)
+             {
+                 // Ignore player, he's always updated!
+             }
+             else //This is just to keep the other objects working.
+             {
+               if (userPointer)
+               {
+                 btQuaternion orientation = trans.getRotation();
+                 Ogre::SceneNode *sceneNode = static_cast<Ogre::SceneNode *>(userPointer);
+                 sceneNode->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
+                 sceneNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
+               }
+             }
+           }
+           else
+           {
+             trans = obj->getWorldTransform();
+           }
+      }
+
+      //Update player here, his movement is not dependent on collisions.
+      ball->update();
     }
-}
 
 void Game::collisionDetection()
 {
@@ -450,6 +461,6 @@ bool Game::mouseMoved(const MouseMotionEvent &evt)
 void Game::setupBall()
 {
   ball = new PingPongBall();
-  ball->init(scnMgr, Vector3(1000.0,1000.0,1000.0),Vector3(10.0,10.0,10.0));
-  ball->initBullet(1.0, collisionShapes, dynamicsWorld);
+  ball->init(scnMgr, Vector3(0.0,500.0,0.0),Vector3(1.0,1.0,1.0));
+  ball->initBullet(100.0, collisionShapes, dynamicsWorld);
 }

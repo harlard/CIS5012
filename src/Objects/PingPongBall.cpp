@@ -3,7 +3,9 @@
 void PingPongBall::init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca){
   setScnMan(newScnMan);
   setNewPosition(newPos); // set current position
+  ogreNode->attachObject(objEnt);
   setNewScale(newSca); // set current scale
+  boundingBoxFromOgre();
 }
 void PingPongBall::newEntity(SceneManager* newScnMan){
   nameMesh = "PingPongBall.mesh";
