@@ -459,6 +459,31 @@ bool Game::keyPressed(const KeyboardEvent &evt)
           ball->recover();
         }
       }
+    if (evt.keysym.sym == SDLK_KP_PLUS)
+    {
+        ball->incrementTS(100.0);
+      }
+    if (evt.keysym.sym == SDLK_KP_MINUS)
+    {
+        ball->incrementTS(-100.0);
+      }
+    if (evt.keysym.sym == SDLK_KP_6)
+    {
+        ball->changeD(Vector3(0.0,0.0,-0.01));
+        }
+    if (evt.keysym.sym == SDLK_KP_4)
+    {
+      ball->changeD(Vector3(0.0,0.0,0.01));
+      }
+    if (evt.keysym.sym == SDLK_KP_8)
+    {
+        ball->changeD(Vector3(0.0,0.01,0.0));
+        }
+    if (evt.keysym.sym == SDLK_KP_5)
+    {
+      ball->changeD(Vector3(0.0,-0.01,0.0));
+      }
+
     return true;
 }
 
