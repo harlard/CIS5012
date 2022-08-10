@@ -148,7 +148,7 @@ void Game::setupCamera()
     Viewport *vp;
     camO = new OCamera();
 
-    camO->init(Vector3(200.0,200.0,0.0), Vector3(0.0,0.5,1.0), scnMgr);
+    camO->init(Vector3(210.0,200.0,0.0), Vector3(0.0,0.5,1.0), scnMgr);
 
     vp = getRenderWindow()->addViewport(camO->getCam());
     camO->setAspect(Real(vp->getActualWidth()), Real(vp->getActualHeight()));
@@ -451,6 +451,14 @@ bool Game::keyPressed(const KeyboardEvent &evt)
     {
         camO->yawNodeRotation(true);
       }
+    if (evt.keysym.sym == SDLK_SPACE)
+    {
+        if(ball->getHold()){
+          ball->throwB();
+        }else{
+          ball->recover();
+        }
+      }
     return true;
 }
 
@@ -464,7 +472,9 @@ void Game::setupBall()
 {
   ball = new PingPongBall();
   ball->init(scnMgr, Vector3(0.0,500.0,0.0),Vector3(1.0,1.0,1.0));
-  ball->initBullet(100.0, collisionShapes, dynamicsWorld);
+  ball->initBullet(1.0, collisionShapes, dynamicsWorld);
+  ball->setNewRetitution(1.0);
+  ball->setTP(Vector3(190.0,180.0,0.0));
 }
 
 
@@ -473,4 +483,5 @@ void Game::setupTable()
   table = new Table();
   table->init(scnMgr, Vector3(0.0,100.0,0.0),Vector3(100.0,100.0,100.0));
   table->initBullet(0.0, collisionShapes, dynamicsWorld);
+  table->setNewRetitution(0.8);
 }
