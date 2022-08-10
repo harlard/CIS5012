@@ -40,6 +40,7 @@ class Object4o
       Radian rads; // store current rads
       string nameMesh;// name of current form
       Vector3  looking;
+      
       Object4o();
       ~Object4o();
       void virtual init(SceneManager* newScnMan, Vector3 newPos, Vector3 newSca);
