@@ -29,6 +29,9 @@ class PingPongBall : public Object4o{
     void setTD(Vector3 newTD);
     void update();
     bool getHold();
+    void incrementTS(float inc);
+    void changeD(Vector3 nd);
+
 
 };
 

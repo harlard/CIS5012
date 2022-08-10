@@ -37,7 +37,8 @@ void PingPongBall::createRigidBody(float bodyMass)
 
 void PingPongBall::throwB(){
   hold = false;
-  btVector3 force(-(cThrowD.x)*cThrowS, (cThrowD.y)*cThrowS, (cThrowD.z)*cThrowS);
+  cThrowD *= cThrowS;
+  btVector3 force(-(cThrowD.x), (cThrowD.y), (cThrowD.z));
   btVector3 push;
 
   btTransform trans;
@@ -87,4 +88,13 @@ void PingPongBall::update()
     ogreNode->setPosition(Ogre::Vector3(trans.getOrigin().getX(), trans.getOrigin().getY(), trans.getOrigin().getZ()));
     ogreNode->setOrientation(Ogre::Quaternion(orientation.getW(), orientation.getX(), orientation.getY(), orientation.getZ()));
   }}
+}
+
+void PingPongBall::incrementTS(float inc){
+  cThrowS +=  inc;
+}
+
+void PingPongBall::changeD(Vector3 nd){
+  cThrowD += nd;
+  cThrowD.normalise();
 }
