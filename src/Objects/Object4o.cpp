@@ -156,3 +156,22 @@ void Object4o::initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &c
   addToCollisionShapes(collisionShapes);
   addToDynamicsWorld(dynamicsWorld);
 }
+void Object4o::setNewRetitution(float nR){ body->setRestitution(nR);}
+
+void Object4o::reposition(Vector3 position) {
+    btTransform initialTransform;
+    btVector3 pos(position.x, position.y, position.z);
+    btVector3 axis(1.0,0.0,0.0);
+    btScalar angle(0.0);
+    btQuaternion orientation(axis, angle);
+
+    initialTransform.setOrigin(pos);
+    initialTransform.setRotation(orientation);
+
+    body->setWorldTransform(initialTransform);
+    body->getMotionState()->setWorldTransform(initialTransform);
+
+    body->setLinearVelocity(btVector3(0.0f, 0.0f, 0.0f));
+    body->setAngularVelocity(btVector3(0.0f, 0.0f, 0.0f));
+    body->clearForces();
+}

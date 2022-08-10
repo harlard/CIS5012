@@ -48,14 +48,13 @@ class Object4o
       void setNewPosition(Vector3 newPos); //set a new position
       void setNewScale(Vector3 newSca); // set a new scale
       void setRotation(Vector3 axis,Radian rads); //set new rotation
-      void setMass(); // set mass
-      void  virtual update(); // update object
+      void virtual update(); // update object
       void attachNodeTo(SceneNode *nodeTo); //attach to a new node
       void boundingBoxFromOgre(); // create border for ogre3d
       void  virtual createRigidBody(float mass); // set bullet
       void addToCollisionShapes(btAlignedObjectArray<btCollisionShape*> &collisionShapes); //Create a collider
       void addToDynamicsWorld(btDiscreteDynamicsWorld* dynamicsWorld); // add dynamics scnMan
-      void setMass(float newMass); //set mass
+      void virtual setMass(float newMass); //set mass
       void setBoundingForOgre();
       Vector3 getCurrentPosition();
       Vector3 getCurrentScale();
@@ -72,8 +71,8 @@ class Object4o
       void attachCamera(Camera *cam);
       void attachThisNode(SceneNode *node);
       void  virtual initBullet(float mass, btAlignedObjectArray<btCollisionShape*> &collisionShapes, btDiscreteDynamicsWorld* dynamicsWorld);
-
-
+      void setNewRetitution(float nR);
+      void reposition(Vector3 position);
 
 
 };
